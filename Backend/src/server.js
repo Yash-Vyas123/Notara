@@ -1,4 +1,5 @@
 import express from "express";
+import { fileURLToPath } from 'url';
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
@@ -14,8 +15,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001
 
-const __dirname = path.resolve();
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 //middleware :- it is a function that runs in the middle between the request and the response.
 if(process.env.NODE_ENV !== "production") {
 app.use(
@@ -37,11 +38,11 @@ next();
 
 app.use("/api/notes", notesRoutes);
 
-app.use(express.static(path.join(__dirname,"../frontend/dist")));
+app.use(express.static(path.join(__dirname,"../../Frontend/dist")));
 
 if(process.env.NODE_ENV == "production"){
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
+    res.sendFile(path.join(__dirname,"../../Frontend","dist","index.html"));
 });
 }
 
