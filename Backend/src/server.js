@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import notesRoutes from "./Routes/notesRoutes.js";
+import authRoutes from "./Routes/authRoutes.js";
 import { connectDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 
@@ -28,14 +29,8 @@ app.use(express.json());
 app.use(rateLimiter);
 
 
-/*app.use((req, res, next)=> {
-console.log(`Req method is ${req.method} $(req.method) & Req URL is ${req.url}`);
-next();
-});*/
 
-
-
-
+app.use("/api/auth", authRoutes);
 app.use("/api/notes", notesRoutes);
 
 app.use(express.static(path.join(__dirname,"../../Frontend/dist")));

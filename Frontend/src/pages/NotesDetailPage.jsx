@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
-import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react";
+import { ArrowLeftIcon, Trash2Icon } from "lucide-react";
 
 const NoteDetailPage = () => {
   const [note, setNote] = useState(null);
@@ -65,8 +65,16 @@ const NoteDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-base-200 flex items-center justify-center">
-        <LoaderIcon className="animate-spin size-10" />
+      <div className="min-h-screen flex flex-col items-center justify-center gap-5">
+        <div className="absolute inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,#000_60%,#00FF9D40_100%)]" />
+        <div className="relative size-16">
+          <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-ping" />
+          <div className="absolute inset-0 rounded-full border-t-4 border-primary animate-spin" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img src="/notara-logo.png" alt="logo" className="size-10 object-contain" />
+          </div>
+        </div>
+        <p className="text-primary font-mono text-sm tracking-widest animate-pulse">FETCHING NOTE...</p>
       </div>
     );
   }

@@ -42,7 +42,15 @@ const HomePage = () => {
       {isRateLimited && <RateLimitedUI />}
 
       <div className="max-w-7xl mx-auto p-4 mt-6">
-        {loading && <div className="text-center text-primary py-10">Loading notes...</div>}
+        {loading && (
+          <div className="flex flex-col items-center justify-center py-20 gap-4">
+            <div className="relative size-16">
+              <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-ping" />
+              <div className="absolute inset-0 rounded-full border-t-4 border-primary animate-spin" />
+            </div>
+            <p className="text-primary font-mono text-sm tracking-widest animate-pulse">LOADING NOTES...</p>
+          </div>
+        )}
 
         {notes.length === 0 && !isRateLimited && <NotesNotFound />}
 
