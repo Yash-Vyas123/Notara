@@ -35,6 +35,15 @@ app.use("/api/notes", notesRoutes);
 
 app.use(express.static(path.join(__dirname,"../../Frontend/dist")));
 
+// Basic error handler middleware
+app.use((err, req, res, next) => {
+    console.error("Unhandled Error:", err);
+    res.status(err.status || 500).json({
+        message: err.message || "Internal Server Error",
+        stack: process.env.NODE_ENV === "production" ? null : err.stack,
+    });
+});
+
 if(process.env.NODE_ENV == "production"){
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname,"../../Frontend","dist","index.html"));

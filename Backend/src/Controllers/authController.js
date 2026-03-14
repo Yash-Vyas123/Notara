@@ -36,8 +36,9 @@ export const registerUser = async (req, res) => {
             token: generateToken(user._id),
         });
     } catch (error) {
-        console.error("Error in registerUser controller:", error);
-        res.status(500).json({ message: "Internal Server Error" });
+        console.error("DEBUG: Error in registerUser controller:", error.message);
+        console.error(error);
+        res.status(500).json({ message: error.message || "Internal Server Error" });
     }
 };
 
@@ -63,7 +64,8 @@ export const loginUser = async (req, res) => {
             res.status(401).json({ message: "Invalid email or password" });
         }
     } catch (error) {
-        console.error("Error in loginUser controller:", error);
-        res.status(500).json({ message: "Internal Server Error" });
+        console.error("DEBUG: Error in loginUser controller:", error.message);
+        console.error(error);
+        res.status(500).json({ message: error.message || "Internal Server Error" });
     }
 };
